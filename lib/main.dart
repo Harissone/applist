@@ -8,7 +8,7 @@ void main() {
       primaryColor: Colors.blue,
       accentColor: Colors.orange
     ),
-    home: MyApp(),
+    home: const MyApp(),
   ));
 }
 
@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List todo = [];
+  String input = "";
 
   @override
   void initState() {
@@ -35,7 +36,34 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("ToDo List"),
+      appBar: AppBar(title: const Text("ToDoList App"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context){
+                return AlertDialog(
+                  title: const Text("Add todolist"),
+                  content: TextField(
+                    onChanged: (String value){
+                      input = value;
+                    },
+                  ),
+                  actions: <Widget>[
+                    FlatButton(onPressed: () {
+                      setState(() {
+                        todo.add(input);
+                      });
+                    }, child: const Text("Add"))
+                  ],
+                );
+              });
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: ListView.builder(itemCount: todo.length,
           itemBuilder: (BuildContext context, int index){
