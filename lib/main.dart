@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -38,12 +39,14 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(title: const Text("ToDoList App"),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
               context: context,
               builder: (BuildContext context){
                 return AlertDialog(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   title: const Text("Add todolist"),
                   content: TextField(
                     onChanged: (String value){
@@ -55,8 +58,9 @@ class _MyAppState extends State<MyApp> {
                       setState(() {
                         todo.add(input);
                       });
-                    }, child: const Text("Add"))
-                  ],
+                      Navigator.of(context).pop();
+                      }, child: const Text("Add"))
+                    ],
                 );
               });
         },
@@ -65,11 +69,21 @@ class _MyAppState extends State<MyApp> {
           color: Colors.white,
         ),
       ),
+
       body: ListView.builder(itemCount: todo.length,
           itemBuilder: (BuildContext context, int index){
         return Dismissible(key: Key(todo[index]), child: Card(
+          elevation: 4,
+          margin: const EdgeInsets.all(8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: ListTile(
             title: Text(todo[index]),
+            trailing: IconButton(icon: const Icon(Icons.delete, color: Colors.red,),
+              onPressed: (){
+                setState(() {
+                  todo.removeAt(index);
+                });
+              }),
           ),
         ));
       }),
