@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -24,6 +25,14 @@ class _MyAppState extends State<MyApp> {
   List todo = [];
   String input = "";
 
+  createtodo(){
+
+  }
+
+  deletetodo(){
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,8 +46,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ToDoList App"),
-      ),
+      //appBar: AppBar(title: const Text("ToDoList App"),
+      //),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
