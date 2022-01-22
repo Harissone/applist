@@ -108,23 +108,28 @@ class _MyAppState extends State<MyApp> {
               } //facing error
 
               DocumentSnapshot documentSnapshot = snapshots.data!.docs[index];
-              return Dismissible(key: Key(index.toString()), child: Card(
-                elevation: 4,
-                margin: const EdgeInsets.all(8),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                child: ListTile(
-                  title: Text(documentSnapshot["todoTitle"]),
-                  trailing: IconButton(icon: const Icon(Icons.delete, color: Colors.red,),
-                      onPressed: (){
-                        deleteTodo(documentSnapshot["todoTitle"]);
-                      //setState to delete input on list collection
-                        /*setState(() {
-                          todo.removeAt(index);
-                        });*/
-                      }),
-                ),
+              return Dismissible(
+                onDismissed: (direction){
+                  deleteTodo(documentSnapshot["todoTitle"]);
+                },
+                key: Key(index.toString()),
+                  child: Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: ListTile(
+                      title: Text(documentSnapshot["todoTitle"]),
+                      trailing: IconButton(icon: const Icon(Icons.delete, color: Colors.red,),
+                        onPressed: (){
+                          deleteTodo(documentSnapshot["todoTitle"]);
+                          //setState to delete input on list collection
+                          /*setState(() {
+                            todo.removeAt(index);
+                          });*/
+                    }),
+                  ),
               ));
-            });
+        });
       })
 
             //Retrieve data from list collection to ListView
